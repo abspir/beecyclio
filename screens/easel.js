@@ -15,7 +15,7 @@ const Easel = ({ navigation }) => {
     let [painting, setPainting] = useState(navigation.getParam('painting'));
 
     const testFunction = () => {
-        axios.post('/.netlify/functions/hello', {
+        axios.post('/.netlify/functions/AWS_DetectCustomLabels', {
             imageData: painting
         })
         .then(function (res) {
