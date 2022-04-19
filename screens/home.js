@@ -60,7 +60,7 @@ const Home = ({ navigation }) => {
 
     let testFunction = (req) => {
         axios.post('/.netlify/functions/hello', {
-            imageData: req
+            imageData: imageDataBase64
         })
         .then(function (res) {
             // handle success
@@ -83,7 +83,7 @@ const Home = ({ navigation }) => {
 
                 <Button title="Scan" onPress={pressHandler} />
 
-                <Button title="Test" onPress={testFunction(imageDataBase64)} />
+                <Button title="Test" onPress={testFunction} />
 
                 <BrowserView>
                     <View>
