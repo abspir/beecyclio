@@ -56,9 +56,9 @@ const Home = ({ navigation }) => {
     //     })
     // }
 
-    let imageDataBase64 = 'Test String';
+    let imageDataBase64 = 'Test String 2';
 
-    const testFunction = (req) => {
+    let testFunction = (req) => {
         axios.post('/.netlify/functions/hello', {
             imageData: req
         })
