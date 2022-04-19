@@ -6,7 +6,7 @@ import qrcode from "../images/qr-to-beecyclio.svg";
 import honeycomb from '../images/honeycomb.svg';
 import CameraImage from '../images/mobile_photos.svg';
 import { StatusBar } from 'expo-status-bar';
-import axios from 'axios';
+
 
 const HomeTitle = styled.Text`
     font-size: 1.5rem;
@@ -56,22 +56,6 @@ const Home = ({ navigation }) => {
     //     })
     // }
 
-    let imageDataBase64 = 'Test String 2';
-
-    let testFunction = (req) => {
-        axios.post('/.netlify/functions/hello', {
-            imageData: imageDataBase64
-        })
-        .then(function (res) {
-            // handle success
-            console.log(res);
-        })
-        .catch(function (err) {
-            // handle error
-            console.log(err);
-        })
-    }
-
     const pressHandler = () => {
         navigation.navigate('Camera');
     };
@@ -82,8 +66,6 @@ const Home = ({ navigation }) => {
                 <HomeTitle>Bzz.. Bzz.. Welcome to Beecyclio</HomeTitle>
 
                 <Button title="Scan" onPress={pressHandler} />
-
-                <Button title="Test" onPress={testFunction} />
 
                 <BrowserView>
                     <View>
