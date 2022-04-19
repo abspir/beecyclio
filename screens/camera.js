@@ -54,10 +54,10 @@ const CameraComponent = ({ navigation }) => {
     let snap = async() => {
         if (cameraReference) {
             let photo = await cameraReference.takePictureAsync();
-            let fileUri = FileSystem.documentDirectory + "text.txt";
+            //let fileUri = FileSystem.documentDirectory + "text.txt";
             // await FileSystem.writeAsStringAsync(fileUri, props.imageAsBase64, { encoding: FileSystem.EncodingType.UTF8 });
 
-            console.log('fileUri: ' + fileUri);
+            //console.log('fileUri: ' + fileUri);
             navigation.navigate('Easel', {painting: photo.base64});
         }
     }

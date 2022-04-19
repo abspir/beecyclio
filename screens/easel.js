@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
 import {Image, Dimensions} from 'react-native';
+import styled from 'styled-components/native';
 
 import axios from 'axios';
 
 const { height, width } = Dimensions.get('window');
 
+const Button = styled.Button`
+    
+`;
+
 const Easel = ({ navigation }) => {
     
     let [painting, setPainting] = useState(navigation.getParam('painting'));
-    
+
     const testFunction = () => {
         axios.post('/.netlify/functions/hello', {
             imageData: painting
