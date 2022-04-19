@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Image, Dimensions} from 'react-native';
 import styled from 'styled-components/native';
-
+import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
 
 const { height, width } = Dimensions.get('window');
@@ -27,11 +27,15 @@ const Easel = ({ navigation }) => {
             console.log(err);
         })
     }
+    document.addEventListener('sendBase64ImageToServer', (e)=>{
+        console.log('event heard')
+        testFunction();
+    });
     return (
         <>
             <Image source={{ uri: painting, isStatic:true }}
             style={{ width, height }}/>
-            <Button title="Test" onPress={testFunction} />
+            <StatusBar style="auto" />
         </>
     )
 }

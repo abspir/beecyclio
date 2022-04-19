@@ -62,6 +62,7 @@ const Home = ({ navigation }) => {
 
     return (
         <>
+        
             <View style={{ backgroundImage: `url(${honeycomb})` }}>
                 <HomeTitle>Bzz.. Bzz.. Welcome to Beecyclio</HomeTitle>
 
