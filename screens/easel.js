@@ -71,9 +71,9 @@ const Easel = ({ navigation }) => {
         justify-content: space-around;
         width: 100%;
         height: 100%;
-        background-size: 68px;
+        background-size: auto;
         background-color: rgb(255, 255, 255);
-        background-positon: center;
+        background-position: center;
         background-repeat: no-repeat;
     `;
 
