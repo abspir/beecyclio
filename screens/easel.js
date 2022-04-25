@@ -79,7 +79,7 @@ const Easel = ({ navigation }) => {
 
     const SimplePressableButton = styled.Text`
         font-size: 1.5rem;
-        color: #000;
+        color: #fff;
         backdrop-filter: blur(4px);
         padding: 0px 10px 10px;
     `;
