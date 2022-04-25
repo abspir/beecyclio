@@ -16,7 +16,7 @@ const Result = ({ navigation }) => {
     const [modalText, setModalText] = useState("");
     const [modalDescription, setModalDescription] = useState("");
 
-    const pressHandler = () => {
+    const clickHandler = () => {
         navigation.navigate('Home');
     };
 
@@ -72,15 +72,21 @@ const Result = ({ navigation }) => {
         padding: 1rem;
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: normal;
         width: 100%;
         height: 100%;
         background-size: 68px;
         background-color: rgb(255, 255, 255);
-        background-positon: center;
+        background-position: center;
     `;
 
-    const Button = styled.Button``;
+    const SimplePressableButton = styled.Text`
+        font-size: 1.5rem;
+        color: #000;
+        backdrop-filter: blur(4px);
+        padding: 0px 10px 10px;
+    `;
+
     const TouchableOpacity = styled.TouchableOpacity``;
 
 
@@ -153,7 +159,9 @@ const Result = ({ navigation }) => {
         <>
             <View>
                 <MobileView>
-                    <ResultTitle>Please select an item</ResultTitle>
+                    <View>
+                        <ResultTitle>Please select an item</ResultTitle>
+                    </View>
 
                     <Modal animationType="slide"
                         transparent={true}
@@ -165,25 +173,27 @@ const Result = ({ navigation }) => {
                     >
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
+
                                 <Text style={styles.modalText}>{modalText}</Text>
+
                                 <Text style={styles.modalText}>{modalDescription}</Text>
-                                <Pressable
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => setModalVisible(!modalVisible)}
-                                >
+                                
+                                <Pressable style={[styles.button, styles.buttonClose]} 
+                                        onPress={() => setModalVisible(!modalVisible)}>
                                     <Text style={styles.textStyle}>Back</Text>
                                 </Pressable>
                             </View>
                         </View>
                     </Modal>
 
-
-                    <TouchableOpacity onPress={showInformation}>
-                        <img style={{ width: "auto", maxWidth: "300px" }} alt="Forest Certified" src={fcs} />
-                    </TouchableOpacity>
-
-
-                    <Button title="Back" onPress={pressHandler} />
+                    <View>
+                        <TouchableOpacity onPress={showInformation}>
+                            <img style={{ width: "auto", maxWidth: "300px" }} alt="Forest Certified" src={fcs} />
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <SimplePressableButton onClick={clickHandler}>Back</SimplePressableButton>
+                    </View>
                 </MobileView>
                 <BrowserView>
                     Browser

@@ -77,6 +77,13 @@ const Easel = ({ navigation }) => {
         background-repeat: no-repeat;
     `;
 
+    const SimplePressableButton = styled.Text`
+        font-size: 1.5rem;
+        color: #000;
+        backdrop-filter: blur(4px);
+        padding: 0px 10px 10px;
+    `;
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -112,15 +119,18 @@ const Easel = ({ navigation }) => {
                     <View style={styles.outer}>
                         <View style={styles.buttonContainer}>
                             <View style={styles.buttonWrapperTop}>
-                                <Button onPress={navigateCamera} title="Try Again"/>
+                                <SimplePressableButton onClick={navigateCamera}>Try Again</SimplePressableButton>
+                                {/* <Button onPress={navigateCamera} title="Try Again"/> */}
                             </View>
 
                             <View style={styles.buttonWrapperBottom}>
-                                <Button onPress={AWSRekognition} title="Send"/>
+                                {/* <Button onPress={AWSRekognition} title="Send"/> */}
+                                <SimplePressableButton onClick={AWSRekognition}>Send</SimplePressableButton>
                             </View>
 
                             <View style={styles.buttonWrapperTop}>
-                                <Button onPress={navigateHome} title="Home"/>
+                                {/* <Button onPress={navigateHome} title="Home"/> */}
+                                <SimplePressableButton onClick={navigateHome}>Home</SimplePressableButton>
                             </View>
 
                         </View>
