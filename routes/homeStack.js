@@ -5,15 +5,10 @@ import styled from 'styled-components/native';
 import Home from "../screens/home";
 import CameraComponent from "../screens/camera";
 import Easel from "../screens/easel";
+import Result from "../screens/result";
 
 const Button = styled.Button`
 `;
-
-const handleHeaderRightClick = () => {
-    console.log('right click');
-    document.dispatchEvent(new CustomEvent('sendBase64ImageToServer'));
-}
-
 const screens = {
     Home: {
         screen: Home,
@@ -32,8 +27,16 @@ const screens = {
     Easel : {
         screen: Easel,
         navigationOptions: {
-            title: "Captured Image",
-            headerRight: (route)=> <Button title="Send" onPress={handleHeaderRightClick} />,
+            headerShown: false,
+            title: "Captured Image"
+        }
+    },
+    Result : {
+        screen: Result,
+        navigationOptions: {
+            title: "Result",
+            headerShown: false,
+            // headerRight: (route)=> <Button title="Send" onPress={handleHeaderRightClick} />,
         }
     }
 }
