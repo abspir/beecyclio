@@ -31,7 +31,7 @@ const Easel = ({ navigation }) => {
         mock.onGet("/.netlify/functions/AWS_DetectCustomLabels", {
             params: { "base64EncodedImage": painting}
         }).reply(200, { "CustomLabels": [{
-            "Name": "Mobius Loop",
+            "Name": "Forest Certified",
             "Confidence": 87.34600067138672}]
         });
 
