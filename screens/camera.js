@@ -5,12 +5,10 @@ import { Camera } from 'expo-camera';
 import closecamera from '../images/close_camera.svg';
 import flipcamera from '../images/flip_camera.svg';
 import circlecamera from '../images/circle_camera.svg';
-// import * as FileSystem from 'expo-file-system';
 
 const CameraComponent = ({ navigation }) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
-    const [canvasView, setCanvasView] = useState(false);
     const navigateHome = () => { navigation.navigate('Home'); }
 
     useEffect(() => {
@@ -20,7 +18,7 @@ const CameraComponent = ({ navigation }) => {
             setHasPermission(status === 'granted');
         })();
     }, []);
-    
+
     const View = styled.View``;
 
     if (hasPermission === null) {
@@ -36,13 +34,9 @@ const CameraComponent = ({ navigation }) => {
     if (hasPermission === false) {
         return <Text>No access to camera</Text>;
     }
-    
-    // const takePicture = () => {
-    //     console.log(takePictureAsync);
-    // }
 
     const onCameraReady = (prop) => {
-        console.log(prop);
+        // console.log(prop);
     }
 
     let cameraReference = undefined;
@@ -51,25 +45,47 @@ const CameraComponent = ({ navigation }) => {
         cameraReference = ref;
     };
 
-    let snap = async() => {
+    let snap = async () => {
         if (cameraReference) {
             let photo = await cameraReference.takePictureAsync();
-            //let fileUri = FileSystem.documentDirectory + "text.txt";
-            // await FileSystem.writeAsStringAsync(fileUri, props.imageAsBase64, { encoding: FileSystem.EncodingType.UTF8 });
-
-            //console.log('fileUri: ' + fileUri);
-            navigation.navigate('Easel', {painting: photo.base64});
+            navigation.navigate('Easel', { painting: photo.base64 });
         }
     }
-    
+
     const TouchableOpacity = styled.TouchableOpacity``;
 
-    
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+        },
+        camera: {
+            flex: 1
+        },
+        buttonContainer: {
+            flex: 1,
+            backgroundColor: 'transparent',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            margin: 20,
+        },
+        buttonWrapperTop: {
+            flex: 0.1,
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+        },
+        buttonWrapperBottom: {
+            flex: 0.1,
+            alignSelf: 'flex-end',
+            alignItems: 'center',
+            marginBottom: '2rem'
+        }
+    });
+
     return (
         <>
             <View style={styles.container}>
-                <Camera ref={setCameraReference} 
-                style={styles.camera} type={type} onCameraReady={onCameraReady('Camera Ready!')}>
+                <Camera ref={setCameraReference}
+                    style={styles.camera} type={type} onCameraReady={onCameraReady('Camera Ready!')}>
                     <View style={styles.buttonContainer}>
                         <View style={styles.buttonWrapperTop}>
                             <TouchableOpacity
@@ -89,9 +105,9 @@ const CameraComponent = ({ navigation }) => {
                             <TouchableOpacity
                                 onPress={() => {
                                     setType(
-                                      type === Camera.Constants.Type.back
-                                        ? Camera.Constants.Type.front
-                                        : Camera.Constants.Type.back
+                                        type === Camera.Constants.Type.back
+                                            ? Camera.Constants.Type.front
+                                            : Camera.Constants.Type.back
                                     );
                                 }}>
                                 <img src={flipcamera} alt="flip" />
@@ -105,32 +121,5 @@ const CameraComponent = ({ navigation }) => {
         </>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    camera: {
-      flex: 1
-    },
-    buttonContainer: {
-      flex: 1,
-      backgroundColor: 'transparent',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      margin: 20,
-    },
-    buttonWrapperTop: {
-      flex: 0.1,
-      alignSelf: 'flex-start',
-      alignItems: 'center',
-    },
-    buttonWrapperBottom: {
-      flex: 0.1,
-      alignSelf: 'flex-end',
-      alignItems: 'center',
-      marginBottom: '2rem'
-    }
-  });
 
 export default CameraComponent;

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, Image, Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import axios, { AxiosRequestConfig } from 'axios';
-//import AxiosMockAdapter from 'axios-mock-adapter';
+import AxiosMockAdapter from 'axios-mock-adapter';
 
 const { height, width } = Dimensions.get('window');
 
@@ -18,49 +18,33 @@ const Easel = ({ navigation }) => {
     const navigateCamera = () => { navigation.navigate('Camera'); }
 
     // This sets the mock adapter on the default instance
-    //const mock = new AxiosMockAdapter(axios, { delayResponse: 2000 });
+    const mock = new AxiosMockAdapter(axios, { delayResponse: 2000 });
     
     let [spinner, setSpinner] = useState(false);
 
-    const AWSRekognition = () => {
-
-        console.log('aws');
-        
-        // Mock GET request to /users when param `searchText` is 'John'
-        // arguments for reply are (status, data, headers)
-        // mock.onGet("/user", {
-        //     params: { searchText: "John" }
-        // }).reply(200, {
-        //     users: [{ id: 1, name: "John Smith" }],
-        // });
-
-        // setSpinner(true);
-
-        // axios
-        // .get("/user", { params: { searchText: "John" } })
-        // .then(function (response) {
-        //     setSpinner(false);
-        //     showResult(response);
-        // });
-        showResult("mock AWS Response");
-        // axios.post('/.netlify/functions/AWS_DetectCustomLabels', {
-        //     imageData: painting
-        // })
-        // .then(function (res) {
-        //     // handle success
-        //     console.log(res);
-        //     showResult(res);
-        // })
-        // .catch(function (err) {
-        //     // handle error
-        //     console.log(err);
-        // })
-    }
-
     const showResult = (res) => {
-        console.log('navigate to result');
         navigation.navigate('Result', { response: res });
     };
+
+    const AWSRekognition = () => {
+        
+        mock.onGet("/.netlify/functions/AWS_DetectCustomLabels", {
+            params: { "base64EncodedImage": painting}
+        }).reply(200, { "CustomLabels": [{
+            "Name": "Mobius Loop",
+            "Confidence": 87.34600067138672}]
+        });
+
+        setSpinner(true);
+
+        axios
+        .get("/.netlify/functions/AWS_DetectCustomLabels", { params: { base64EncodedImage: painting } })
+        .then((response) => {
+            setSpinner(false);
+            mock.restore();
+            showResult(response);
+        });
+    }
 
     const View = styled.View``;
 
@@ -108,13 +92,30 @@ const Easel = ({ navigation }) => {
             alignSelf: 'flex-end',
             alignItems: 'center',
             marginBottom: '2rem'
+        },
+        spinner: {
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            opacity: 0.5,
+            backgroundColor: 'black',
+            justifyContent: 'center',
+            alignItems: 'center',
+            pointerEvents: 'none'
         }
     });
 
 
     return (
         <>
-            <Background style={{ backgroundImage: `url(${painting})` }}>
+            <Background pointerEvents={spinner?'none':'auto'} style={{ backgroundColor: "#000", backgroundImage: `url(${painting})` }}>
+                
+                <View style={styles.spinner}>
+                    <ActivityIndicator size="large" animating={spinner} />
+                </View>
+                
                 <View style={styles.container}>
                     <View style={styles.outer}>
                         <View style={styles.buttonContainer}>
